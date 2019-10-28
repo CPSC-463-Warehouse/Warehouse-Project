@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GetTextFieldValues : MonoBehaviour
 {
@@ -24,19 +26,23 @@ public class GetTextFieldValues : MonoBehaviour
 
     void ProcessText()
     {
+        Scene scene = SceneManager.GetActiveScene();
+
         ItemName = ItemNameIF.text;
         int.TryParse(XValueIF.text, out XValue);
         int.TryParse(YValueIF.text, out YValue);
         int.TryParse(ZValueIF.text, out ZValue);
 
-        Debug.Log(ItemName + " " + XValue + " " + YValue + " " + ZValue);
+        if (scene.name == "CreatingWarehouse")
+        {
+            Algo.initWarehouse(XValue, YValue, ZValue);
+            Debug.Log("Warehouse");
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+        else
+        {
+            Algo.Item NewItem = new Algo.Item(ItemName, XValue, YValue, ZValue);
+        }
     }
 
 
