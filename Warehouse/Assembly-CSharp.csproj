@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\CreatingWarehouse.cs" />
+    <Compile Include="Assets\Script\GetTextFieldValues.cs" />
     <Compile Include="Assets\Script\SaveWarehouseInfo.cs" />
     <Compile Include="Assets\Script\SceneSwitcher.cs" />
     <Reference Include="Unity.Timeline.Editor">
