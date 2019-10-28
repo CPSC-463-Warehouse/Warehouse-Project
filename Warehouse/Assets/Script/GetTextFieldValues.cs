@@ -39,9 +39,12 @@ public class GetTextFieldValues : MonoBehaviour
             Debug.Log("Warehouse");
 
         }
-        else
+        else if (scene.name == "NewItem")
         {
             Algo.Item NewItem = new Algo.Item(ItemName, XValue, YValue, ZValue);
+            Algo.addItem(NewItem);
+            Debug.Log("New Item");
+            //  Algo.printWarehouse();
         }
     }
 

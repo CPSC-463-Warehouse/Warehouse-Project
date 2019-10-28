@@ -20,7 +20,6 @@ public class Algo : MonoBehaviour
         //Sets all values in warehouse to open - clearWarehouse?
         for (int i = 0; i < x; i++)
         {
-            Debug.Log(i);
             for (int j = 0; j < y; j++) //ADD HEIGHT
             {
                 for (int k = 0; z < 5; k++)
@@ -80,16 +79,16 @@ public class Algo : MonoBehaviour
                 {
                     if (warehouse[i, j, k] == true)
                     {
-                        Console.Write("_");
+                        Debug.Log("_");
                     }
                     else
                     {
-                        Console.Write("X");
+                        Debug.Log("X");
                     }
                 }
-                Console.Write(" ");
+                Debug.Log(" ");
             }
-            Console.Write("\n");
+            Debug.Log("\n");
         }
     }
 
@@ -308,8 +307,8 @@ public class Algo : MonoBehaviour
                                 //Updates if a new best surface area fit is found
                                 if (newSA > bestSAFit)
                                 {
-                                    Console.Write("New bestSAFit");
-                                    Console.Write("\n");
+                                    Debug.Log("New bestSAFit");
+                                    Debug.Log("\n");
                                     bestFit[0] = i;
                                     bestFit[1] = j;
                                     bestFit[2] = k;
@@ -334,13 +333,13 @@ public class Algo : MonoBehaviour
         }
         else
         {
-            Console.Write("The new item does not fit");
-            Console.Write("\n");
+            Debug.Log("The new item does not fit");
+            Debug.Log("\n");
         }
 
-        Console.Write("best sa fit ");
-        Console.Write(bestSAFit);
-        Console.Write("\n");
+        Debug.Log("best sa fit ");
+        Debug.Log(bestSAFit);
+        Debug.Log("\n");
         //Add item dimensions (in the rotation the item was places), coordinate, and name to list.
         return;
     }
