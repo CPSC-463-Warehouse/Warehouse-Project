@@ -69,8 +69,9 @@ public class Algo : MonoBehaviour
     }
 
     //Prints a representation of the warehouse
-    public static void printWarehouse()
+    public static string printWarehouse()
     {
+        string warehouseText = "";
         for (int i = 0; i < 10; i++)
         {
             for (int k = 0; k < 5; k++)
@@ -79,17 +80,18 @@ public class Algo : MonoBehaviour
                 {
                     if (warehouse[i, j, k] == true)
                     {
-                        Debug.Log("_");
+                        warehouseText+="_";
                     }
                     else
                     {
-                        Debug.Log("X");
+                        warehouseText+="X";
                     }
                 }
-                Debug.Log(" ");
+                warehouseText+=" ";
             }
-            Debug.Log("\n");
+            warehouseText+="\n";
         }
+        return warehouseText;
     }
 
     //returns true if there is space for the package in the area
