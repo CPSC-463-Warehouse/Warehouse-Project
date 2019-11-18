@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreatingWarehouse : MonoBehaviour
+public class CreateWarehouse : MonoBehaviour
 {
-    //change these to warehouse size variables x & z = size of square y = height of sqare
-    public float x = 30f;
-    public float y = 30f;
-    public float z = 25f;
+    public GameObject block;
+    public int width = 10;
+    public int height = 4;
 
-    // create bottom plane to new warehouse size 
     void Start()
     {
-        transform.localScale = new Vector3(x, y, z);
+        for (int y = 0; y < height; ++y)
+        {
+            for (int x = 0; x < width; ++x)
+            {
+                Instantiate(block, new Vector3(x, y, 0), Quaternion.identity);
+            }
+        }
     }
 }
