@@ -10,21 +10,25 @@ public class Algo : MonoBehaviour
     //Multi-dimensional array for warehouse and taken spaces
 
     static bool[,,] array = new bool[10, 10, 5];
-    static bool[,,] warehouse = new bool[10, 10, 10];
+    //static bool[,,] warehouse = new bool[10, 10, 10];
     //public static bool[][][] warehouse = RectangularArrays.RectangularBoolArray(10, 10, 5); //true means the slot is available
     //ADD HEIGHT
+
+    // public int length = WarehouseInstance.instance.length;
+    //private int width = WarehouseInstance.instance.width;
+    //private int heigth = WarehouseInstance.instance.height;
 
     public static void initWarehouse(int x, int y, int z)
     {
         
         //Sets all values in warehouse to open - clearWarehouse?
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < WarehouseInstance.instance.length; i++)
         {
-            for (int j = 0; j < 10; j++) //ADD HEIGHT
+            for (int j = 0; j < WarehouseInstance.instance.width; j++) //ADD HEIGHT
             {
-                for (int k = 0; k < 5; k++)
+                for (int k = 0; k < WarehouseInstance.instance.height; k++)
                 {
-                    warehouse[i, j, k] = true;
+                    WarehouseInstance.instance.warehouse[i, j, k] = true;
 
                 }
             }
@@ -72,13 +76,13 @@ public class Algo : MonoBehaviour
     public static string printWarehouse()
     {
         string warehouseText = "";
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < WarehouseInstance.instance.length; i++)
         {
-            for (int k = 0; k < 5; k++)
+            for (int k = 0; k < WarehouseInstance.instance.height; k++)
             {
-                for (int j = 0; j < 10; j++) //ADD HEIGHT
+                for (int j = 0; j < WarehouseInstance.instance.width; j++) //ADD HEIGHT
                 {
-                    if (warehouse[i, j, k] == true)
+                    if (WarehouseInstance.instance.warehouse[i, j, k] == true)
                     {
                         warehouseText+="_";
                     }
@@ -100,15 +104,15 @@ public class Algo : MonoBehaviour
         //std::cout << length << " " << width << " " << x << " " << y << std::endl;
 
         //in case the package's dimensions are too long to fit in warehouse altogether
-        if (x + length > 10)
+        if (x + length > WarehouseInstance.instance.length)
         {
             return false;
         }
-        if (y + width > 10)
+        if (y + width > WarehouseInstance.instance.width)
         {
             return false;
         }
-        if (z + height > 5)
+        if (z + height > WarehouseInstance.instance.height)
         {
             return false;
         }
@@ -121,7 +125,7 @@ public class Algo : MonoBehaviour
                 for (int b = z; b < z + height; b++)
                 {
                     //If a space is occupied, the package won't fit there
-                    if (warehouse[w, a, b] == false)
+                    if (WarehouseInstance.instance.warehouse[w, a, b] == false)
                     {
                         return false;
                     }
@@ -151,18 +155,18 @@ public class Algo : MonoBehaviour
                     //Means there is some surface area touching a warehouse bound
                     sa += 1;
                 }
-                else if (warehouse[w, a, z - 1] == false)
+                else if (WarehouseInstance.instance.warehouse[w, a, z - 1] == false)
                 {
                     //means there is some surface area touching a package
                     sa += 1;
                 }
 
-                if (z + height >= 5)
+                if (z + height >= WarehouseInstance.instance.height)
                 {
                     //Means there is some surface area touching a warehouse bound
                     sa += 1;
                 }
-                else if (warehouse[w, a, z + height] == false)
+                else if (WarehouseInstance.instance.warehouse[w, a, z + height] == false)
                 {
                     //means there is some surface area touching a package
                     sa += 1;
@@ -179,18 +183,18 @@ public class Algo : MonoBehaviour
                     //Means there is some surface area touching a warehouse bound
                     sa += 1;
                 }
-                else if (warehouse[w, y - 1, b] == false)
+                else if (WarehouseInstance.instance.warehouse[w, y - 1, b] == false)
                 {
                     //means there is some surface area touching a package
                     sa += 1;
                 }
 
-                if (y + width >= 10)
+                if (y + width >= WarehouseInstance.instance.width)
                 {
                     //Means there is some surface area touching a warehouse bound
                     sa += 1;
                 }
-                else if (warehouse[w, y + width, b] == false)
+                else if (WarehouseInstance.instance.warehouse[w, y + width, b] == false)
                 {
                     //means there is some surface area touching a package
                     sa += 1;
@@ -207,18 +211,18 @@ public class Algo : MonoBehaviour
                     //Means there is some surface area touching a warehouse bound
                     sa += 1;
                 }
-                else if (warehouse[x - 1, a, b] == false)
+                else if (WarehouseInstance.instance.warehouse[x - 1, a, b] == false)
                 {
                     //means there is some surface area touching a package
                     sa += 1;
                 }
 
-                if (x + length >= 10)
+                if (x + length >= WarehouseInstance.instance.length)
                 {
                     //Means there is some surface area touching a warehouse bound
                     sa += 1;
                 }
-                else if (warehouse[x + length, a, b] == false)
+                else if (WarehouseInstance.instance.warehouse[x + length, a, b] == false)
                 {
                     //means there is some surface area touching a package
                     sa += 1;
@@ -239,7 +243,7 @@ public class Algo : MonoBehaviour
             {
                 for (int b = z; b < z + height; b++)
                 {
-                    warehouse[w, a, b] = false;
+                    WarehouseInstance.instance.warehouse[w, a, b] = false;
                 }
             }
         }
@@ -284,13 +288,13 @@ public class Algo : MonoBehaviour
         orientations[5][2] = item.Length;
 
         //Checks if any of the slots are open
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < WarehouseInstance.instance.length; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < WarehouseInstance.instance.width; j++)
             {
-                for (int k = 0; k < 5; k++)
+                for (int k = 0; k < WarehouseInstance.instance.height; k++)
                 {
-                    if (warehouse[i, j, k] == true)
+                    if (WarehouseInstance.instance.warehouse[i, j, k] == true)
                     {
 
                         //std::cout << "Checking if item fits..." << std::endl;

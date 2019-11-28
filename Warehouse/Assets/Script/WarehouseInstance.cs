@@ -1,0 +1,32 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WarehouseInstance : MonoBehaviour
+{
+    public static WarehouseInstance instance; //the singleston
+
+    public int length;
+    public int width;
+    public int height;
+
+    public bool[,,] warehouse;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    public void setWarehouse()
+    {
+        warehouse = new bool[length, width, height];
+    }
+}

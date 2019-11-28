@@ -33,6 +33,11 @@ public class GetTextFieldValues : MonoBehaviour
         int.TryParse(YValueIF.text, out YValue);
         int.TryParse(ZValueIF.text, out ZValue);
 
+        WarehouseInstance.instance.length = XValue;
+        WarehouseInstance.instance.width = YValue;
+        WarehouseInstance.instance.height = ZValue;
+        WarehouseInstance.instance.setWarehouse();
+
         if (scene.name == "CreatingWarehouse")
         {
             Algo.initWarehouse(XValue, YValue, ZValue);
