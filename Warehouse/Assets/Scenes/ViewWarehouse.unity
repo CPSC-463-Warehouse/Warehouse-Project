@@ -255,8 +255,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 7105066896658663189, guid: a2656e223116d2b4c82c297e9356f625, type: 3}
-  width: 50
-  legnth: 30
 --- !u!1 &671818906
 GameObject:
   m_ObjectHideFlags: 0
