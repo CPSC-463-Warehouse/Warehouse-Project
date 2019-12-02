@@ -9,7 +9,7 @@ public class Algo : MonoBehaviour
 {
     //Multi-dimensional array for warehouse and taken spaces
 
-    static bool[,,] array = new bool[10, 10, 5];
+    //static bool[,,] array = new bool[10, 10, 5];
     //static bool[,,] warehouse = new bool[10, 10, 10];
     //public static bool[][][] warehouse = RectangularArrays.RectangularBoolArray(10, 10, 5); //true means the slot is available
     //ADD HEIGHT
@@ -29,12 +29,15 @@ public class Algo : MonoBehaviour
                 for (int k = 0; k < WarehouseInstance.instance.height; k++)
                 {
                     WarehouseInstance.instance.warehouse[i, j, k] = true;
+                    int arrayLength = i * j * k;
+                    WarehouseInstance.instance.itemnames = new string[arrayLength];
 
                 }
             }
         }
+        unitTestFunction();
     }
-
+    
     public class Item
     {
         private string name;
@@ -132,7 +135,7 @@ public class Algo : MonoBehaviour
                 }
             }
         }
-
+        
         //No occupied spaces indicates the package can fit
         return true;
     }
@@ -335,7 +338,12 @@ public class Algo : MonoBehaviour
         //choose best fit, fill spaces
         if (bestFit[0] != -1 && bestFit[1] != -1 && bestFit[2] != -1)
         {
+            checkIfItemExists(item.Name);
             fillSpaces(bestOrientation[0], bestOrientation[1], bestOrientation[2], bestFit[0], bestFit[1], bestFit[2]);
+            WarehouseInstance.instance.itemnames[WarehouseInstance.instance.itemindex] = item.Name;
+            WarehouseInstance.instance.itemindex++;
+            checkIfItemExists(item.Name);
+
         }
         else
         {
@@ -343,58 +351,95 @@ public class Algo : MonoBehaviour
             Debug.Log("\n");
         }
 
-        Debug.Log("best sa fit ");
-        Debug.Log(bestSAFit);
-        Debug.Log("\n");
+        unitTestFunction();
+        //  Debug.Log("best sa fit ");
+        //  Debug.Log(bestSAFit);
+        //  Debug.Log("\n");
         //Add item dimensions (in the rotation the item was places), coordinate, and name to list.
         return;
     }
-
-    /*
-    static void Main(string[] args)
+    
+    public static void unitTestFunction()
     {
-        int l;
-        int w;
-        int h;
-        initWarehouse();
-        while (true)
+        bool warehouseValidTest = checkWarehouse();
+        bool warehouseVacancyTest = checkWarehouseVacancy();
+        //  bool checkWarehouseSizeTest = checkWarehouseSize();
+        Debug.Log("Warehouse Valid Test Pass?  " + warehouseValidTest);
+        Debug.Log("Warehouse Vacancy Test Pass?  " + warehouseVacancyTest);
+
+
+    }
+
+    public static bool checkWarehouse()
+    {
+
+        if (WarehouseInstance.instance.height <= 0 || WarehouseInstance.instance.width <= 0 || WarehouseInstance.instance.length <= 0)
         {
-            //Prompts user for length and width
-            Console.Write("please enter length ");
-            l = int.Parse(Console.ReadLine());
-            if (l == -1)
-            {
-                break;
-            }
-
-            Console.Write("please enter width ");
-            w = int.Parse(Console.ReadLine());
-            if (w == -1)
-            {
-                break;
-            }
-
-            Console.Write("please enter height ");
-            h = int.Parse(Console.ReadLine());
-            if (h == -1)
-            {
-                break;
-            }
-            Console.Write("please enter item name ");
-            string item_name = (Console.ReadLine());
-
-
-            Item new_item = new Item(item_name, w, l, h);
-            //new_item.Length = l;
-            //new_item.Width = w;
-            //new_item.Height = h;
-            //new_item.Name = item_name;
-            addItem(new_item);
-            printWarehouse();
+            // Debug.Log("Warehouse instance does not exist!");
+            return false;
+        }
+        else
+        {
+            // Debug.Log("Warehouse instance exists!");
+            return true;
         }
     }
-    */
+
+    public static bool checkWarehouseVacancy()
+    {
+        bool isVacant = true;
+        for (int i = 0; i < WarehouseInstance.instance.length; i++)
+        {
+            for (int j = 0; j < WarehouseInstance.instance.width; j++) //ADD HEIGHT
+            {
+                for (int k = 0; k < WarehouseInstance.instance.height; k++)
+                {
+                    if (WarehouseInstance.instance.warehouse[i, j, k] == false)
+                    {
+                        isVacant = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if (isVacant == true)
+        {
+            // Debug.Log("Warehouse is empty!");
+            return false;
+
+        }
+        else // Debug.Log("Warehouse is NOT empty!");
+        return true;
+    }
+
+    public static bool checkWarehouseSize()
+    {
+        Debug.Log(WarehouseInstance.instance.height);
+        Debug.Log(WarehouseInstance.instance.width);
+        Debug.Log(WarehouseInstance.instance.length);
+        return true;
+    }
+
+    public static void checkIfItemExists(string itemName)
+    {
+        bool exists = false;
+        for (int i = 0; i < WarehouseInstance.instance.itemindex; i++)
+        {
+            if (itemName == WarehouseInstance.instance.itemnames[i])
+            {
+                exists = true;
+                break;
+            }
+        }
+        if (exists == true)
+        {
+            Debug.Log("Item exists in the warehouse!");
+        }
+        else
+        {
+            Debug.Log("Item DOES NOT exist in the warehouse.");
+        }
+    }
+
+
 }
-
-
-
