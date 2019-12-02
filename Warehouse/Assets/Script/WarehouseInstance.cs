@@ -11,6 +11,8 @@ public class WarehouseInstance : MonoBehaviour
     public int height;
 
     public bool[,,] warehouse;
+    public string[] itemnames;
+    public int itemindex = 0;
 
     private void Awake()
     {
