@@ -14,6 +14,8 @@ public class WarehouseInstance : MonoBehaviour
     public string[] itemnames;
     public int itemindex = 0;
 
+    public bool isValid = false;
+
     private void Awake()
     {
         if(instance != null)
@@ -30,5 +32,6 @@ public class WarehouseInstance : MonoBehaviour
     public void setWarehouse()
     {
         warehouse = new bool[length, width, height];
+        isValid = true;
     }
 }
